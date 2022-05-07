@@ -4,7 +4,7 @@ This will be the overview for my project. I will detail what my project is about
 ### Requirements
 * Have json-server installed
 
-### Installation Instructions
+### Installation Instructions (How to use)
 * Fork and clone
 * Run json server for db.json
 * Open index.html in the browser
