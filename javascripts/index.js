@@ -1,18 +1,19 @@
 /* 
     Overall Idea:
-        Click the word of the day link and view form to submit word guess
+        Click the Wordle Spinooff link
 
     When: DOMContentLoaded (event)
 
     Cause: click
 
-    Effect: render a blank form
+    Effect: return to the homepage
 
 */
 // Node Getters
 const mainDiv = () => document.getElementById("main");
 const wordOfDay = () => document.getElementById("word-of-day-link")
 const randomWord = () => document.getElementById("random-word")
+const wordleSpinoff = () => document.getElementById("wordle-spinoff")
 
 // Event Listeners
 function attachWordOfDayEvent() {
@@ -22,6 +23,11 @@ function attachWordOfDayEvent() {
 function attachRandomWordEvent() {
     randomWord().addEventListener("click", renderRandomWordForm)
 }
+
+function attachWordleSpinoffClickEvent() {
+    wordleSpinoff().addEventListener("click", renderHomePage)
+}
+
 
 
 
@@ -90,4 +96,5 @@ document.addEventListener("DOMContentLoaded", () => {
     renderHomePage();
     attachWordOfDayEvent();
     attachRandomWordEvent();
+    attachWordleSpinoffClickEvent();
 })
