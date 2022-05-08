@@ -12,10 +12,15 @@
 // Node Getters
 const mainDiv = () => document.getElementById("main");
 const wordOfDay = () => document.getElementById("word-of-day-link")
+const randomWord = () => document.getElementById("random-word")
 
 // Event Listeners
 function attachWordOfDayEvent() {
     wordOfDay().addEventListener("click", renderWordOfDayForm)
+}
+
+function attachRandomWordEvent() {
+    randomWord().addEventListener("click", renderRandomWordForm)
 }
 
 
@@ -54,6 +59,26 @@ function renderWordOfDayForm() {
     mainDiv().appendChild(ul)
 }
 
+function renderRandomWordForm() {
+    resetMainDiv();
+
+    const h1 = document.createElement("h1");
+    const li = document.createElement("li");
+    const ul = document.createElement("ul");
+
+    h1.innerText = "Random Word"
+    h1.style.margintop = "0"
+    
+    li.innerText = "Guess any random four letter word"
+    
+    ul.appendChild(li);
+
+    mainDiv().appendChild(h1)
+    mainDiv().appendChild(ul)
+
+
+}
+
 
 // Helpers
 function resetMainDiv() {
@@ -64,4 +89,5 @@ function resetMainDiv() {
 document.addEventListener("DOMContentLoaded", () => {
     renderHomePage();
     attachWordOfDayEvent();
+    attachRandomWordEvent();
 })
