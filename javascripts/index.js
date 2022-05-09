@@ -16,6 +16,7 @@ const mainDiv = () => document.getElementById("main");
 const wordOfDay = () => document.getElementById("word-of-day-link")
 const randomWord = () => document.getElementById("random-word")
 const wordleSpinoff = () => document.getElementById("wordle-spinoff")
+const previousGuess = () => document.getElementById("previousGuess")
 
 // Event Listeners
 function attachWordOfDayEvent() {
@@ -87,12 +88,17 @@ function renderRandomWordForm() {
 
 }
 
+function renderPreviousGuesses() {
+    p2.innerText = guess
+}
+
 
 // Helpers
 function resetMainDiv() {
     mainDiv().innerHTML = ""
 }
 
+// Fetching API
 async function guessDailyWord(guessWord) {
     const response = await fetch (`https://v1.wordle.k2bd.dev/daily?guess=${guessWord}`, {
         method: 'GET'
@@ -109,9 +115,11 @@ form.onsubmit = async function (event) {
     const guess = form.guess.value
     console.log("guess", guess)
     const response = await guessDailyWord(guess)
-    console.log("response", response)
+    console.log("response", response[0].result)
+    
 }
 
+// response.forEach(element)
 // DOM Content Loaded
 document.addEventListener("DOMContentLoaded", () => {
     renderHomePage();
