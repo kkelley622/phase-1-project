@@ -1,3 +1,5 @@
+'use strict';
+
 /* 
     Overall Idea:
         Click the Wordle Spinooff link
@@ -89,6 +91,25 @@ function renderRandomWordForm() {
 // Helpers
 function resetMainDiv() {
     mainDiv().innerHTML = ""
+}
+
+async function guessDailyWord(guessWord) {
+    const response = await fetch (`https://v1.wordle.k2bd.dev/daily?guess=${guessWord}`, {
+        method: 'GET'
+    })
+    const awaitResponse = await response.json()
+    return awaitResponse
+}
+// guessDailyWord()
+
+const form = document.getElementById("guess-form")
+
+form.onsubmit = async function (event) {
+    event.preventDefault()
+    const guess = form.guess.value
+    console.log("guess", guess)
+    const response = await guessDailyWord(guess)
+    console.log("response", response)
 }
 
 // DOM Content Loaded
