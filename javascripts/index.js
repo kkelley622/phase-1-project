@@ -116,6 +116,14 @@ form.onsubmit = async function (event) {
     console.log("guess", guess)
     const response = await guessDailyWord(guess)
     console.log("response", response[0].result)
+    let incorrectLetters = 0
+    response.map((letter) => {if(letter.result === "present" || letter.result === "absent")
+        incorrectLetters += 1})
+    // const isGuessCorrect = response.filter((letter) => {console.log(letter.result, letter.result === "correct")})
+    // incorrectLetters = 0
+    const correctGuess = document.getElementById("correct")
+    const isCorrect = incorrectLetters === 0
+    correctGuess.innerText = `${guess}: ${isCorrect ? "Good Job" : "Guess Again"}`
     
 }
 
