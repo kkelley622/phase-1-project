@@ -1,0 +1,74 @@
+{
+  "posts": [
+    {
+      "id": 1,
+      "title": "json-server",
+      "author": "typicode"
+    }
+  ],
+  "comments": [
+    {
+      "id": 1,
+      "body": "some comment",
+      "postId": 1
+    }
+  ],
+  "profile": {
+    "name": "typicode"
+  },
+  "guesses": [
+    {
+      "id": 1,
+      "lastGuess": "black"
+    },
+    {
+      "id": 2,
+      "lastGuess": "bears"
+    },
+    {
+      "guess": [
+        {
+          "id": 1,
+          "lastGuess": "black"
+        },
+        {
+          "id": 2,
+          "lastGuess": "bears"
+        }
+      ],
+      "id": 3
+    },
+    {
+      "lastGuess": "house",
+      "id": 4
+    },
+    {
+      "lastGuess": "gully",
+      "id": 5
+    },
+    {
+      "lastGuess": "treat",
+      "id": 6
+    },
+    {
+      "lastGuess": "homes",
+      "id": 7
+    },
+    {
+      "lastGuess": "leave",
+      "id": 8
+    },
+    {
+      "lastGuess": "leave",
+      "id": 9
+    },
+    {
+      "lastGuess": "leave",
+      "id": 10
+    },
+    {
+      "lastGuess": "black",
+      "id": 11
+    }
+  ]
+}

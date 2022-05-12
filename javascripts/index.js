@@ -1,4 +1,4 @@
-'use strict';
+// 'use strict';
 
 /* 
     Overall Idea:
@@ -17,7 +17,10 @@ const wordOfDay = () => document.getElementById("word-of-day-link")
 const randomWord = () => document.getElementById("random-word")
 const wordleSpinoff = () => document.getElementById("wordle-spinoff")
 const previousGuess = () => document.getElementById("previousGuess")
-const form = document.getElementById("guess-form")
+
+
+let lastGuess = [];
+
 
 // Event Listeners
 function attachWordOfDayEvent() {
@@ -45,7 +48,7 @@ function renderHomePage() {
     const p = document.createElement("p");
 
     h1.innerText = "Kevin's Word Guessing Game Homepage"
-    p.innerText = "Guess the five letter word of the day, or a random five letter word!"
+    p.innerText = "Guess the five letter word of the day!"
 
     mainDiv().appendChild(h1);
     mainDiv().appendChild(p);
@@ -54,24 +57,32 @@ function renderHomePage() {
 // Function to render ord of the day page on click
 function renderWordOfDayForm() {
     resetMainDiv();
-
+    
     // create the html elements of the word of the day page
     const h1 = document.createElement("h1");
-    const li = document.createElement("li");
-    const ul = document.createElement("ul");
+
     const form = document.createElement("form")
     form.setAttribute('method', "post");
     form.setAttribute('action', "submit.php")
 
-    h1.innerText = "Word of the Day"
+    h1.innerText = "Previous Guesses"
     h1.style.margintop = "0"
     
-    li.innerText = "Guess today's five letter word"
-    
-    ul.appendChild(li);
-
     mainDiv().appendChild(h1)
+    renderLastGuesses();
+}
+
+const renderLastGuesses = () => {
+    const ul = document.createElement("ul");
+    lastGuess.forEach(lastGuess => renderLastGuess(lastGuess, ul))
     mainDiv().appendChild(ul)
+
+}
+
+const renderLastGuess = (lastGuess, ul) => {
+    const li = document.createElement("li");
+    li.innerText = lastGuess.lastGuess
+    ul.appendChild(li);
 }
 
 // function renderRandomWordForm() {
@@ -94,8 +105,7 @@ function renderWordOfDayForm() {
 
 // }
 
-// display guess under form
-function renderPreviousGuesses() {
+function renderPreviousGuesses() {  // display user's guess in p2 under the submit form
     p2.innerText = guess
 }
 
@@ -113,42 +123,70 @@ async function guessDailyWord(guessWord) {
     const awaitResponse = await response.json()
     return awaitResponse
 }
-// guessDailyWord()
 
 
+
+
+
+const form = document.getElementById("guess-form")  // assigning the form to a variable 
 
 // Submitting our guess form
-
 form.onsubmit = async function (event) {
     event.preventDefault()
-    // setting the value of our guess to a variable
-    const guess = form.guess.value
+
+    const guess = form.guess.value  // setting the value of our guess to a variable
     console.log("guess", guess)
-    // using our guess variable as the parameter in guessDailyWord function and setting to the variable response
-    const response = await guessDailyWord(guess)
+    const pushToGuessList = () => {
+        fetch('http://localhost:3000/guesses', {
+        method: "POST",
+        headers: {
+            "Accept": "application/json",
+            "Content-Type": "application/json"
+        },
+        body: JSON.stringify({lastGuess: guess})
+    })
+    .then(resp => resp.json())
+    .then(data => {
+        lastGuess.push(data);
+    })
+    }
+    const response = await guessDailyWord(guess)  // using our guess variable as the parameter in guessDailyWord function and setting to the variable response
     console.log("response", response[0].result)
-    // creating a new variable which we will use to store if there are any incorrect letters in the guess
-    let incorrectLetters = 0
-    // map through the letters in our guess and determine if the letter is present or absent. if present or absent add 1 to our incorrect letters variable
-    response.map((letter) => {if(letter.result === "present" || letter.result === "absent")
-        incorrectLetters += 1})
-    // const isGuessCorrect = response.filter((letter) => {console.log(letter.result, letter.result === "correct")})
+    
+    let incorrectLetters = 0  // creating a new variable to store number of incorrect letters
+
+    
+    response.map((letter) => {
+        if(letter.result === "present" || letter.result === "absent") incorrectLetters += 1
+        const presentLetters = document.getElementById("presentLetters")
+        const absentLetters = document.getElementById("absentLetters")
+
+        presentLetters.innerText += `${letter.result === "present" ? ` ${letter.guess}` : ""}`
+        absentLetters.innerText += `${letter.result === "absent" ? ` ${letter.guess}` : ""}`
+    })  // map through the letters of guess, determine if the letter is present or absent. if present or absent + 1 to incorrect letters
     // incorrectLetters = 0
-    // setting the correct div of the html to a variable where we will display if the guess was correct or not
-    const correctGuess = document.getElementById("correct")
-    // setting the value of isCorrect to be incorrectLetters with a value of 0
-    const isCorrect = incorrectLetters === 0
-    // using a ternary to display different text depending on wheter or not there are any incorrect letters in our guess
-    correctGuess.innerText = `${guess}: ${isCorrect ? "Good Job" : "Guess Again"}`
+    const guessStatus = document.getElementById("guessStatus")  // assign div of guessStatus to variable guessStatus
+
+    const isCorrect = incorrectLetters === 0  // the value of isCorrect assigned incorrectLetters with a value of 0
+    guessStatus.innerText = `${guess}: ${isCorrect ? "Good Job" : "Guess Again"}`  // using a ternary to display different text depending on wheter or not there are any incorrect letters in our guess
+    
+    pushToGuessList();
     
 }
 
-// response.forEach(element)
-// DOM Content Loaded
+// using db.json
 
+const fetchGuessList = () => {
+    fetch("http://localhost:3000/guesses")
+    .then(resp => resp.json())
+    .then(data => lastGuess = data)
+}
+
+// DOM Content Loaded Event Listener
 document.addEventListener("DOMContentLoaded", () => {
     renderHomePage();
     attachWordOfDayEvent();
     // attachRandomWordEvent();
+    fetchGuessList();
     attachWordleSpinoffClickEvent();
 })

@@ -17,9 +17,9 @@
 <body class="green">
     <nav class="orange">
         <div class="nav-wrapper container">
-          <a href="#" class="brand-logo center" id="wordle-spinoff">Wordle Spinoff</a>
+          <a href="#" class="brand-logo center" id="wordle-spinoff">Kevin's Guessing Game</a>
           <ul id="nav-mobile" class="left hide-on-med-and-down">
-            <li><a href="#" id="word-of-day-link">Word of the Day</a></li>
+            <li><a href="#" id="word-of-day-link">Your Previous Guesses</a></li>
             <!-- <li><a href="#" id ="random-word">Random Word</a></li> -->
           </ul>
         </div>
@@ -34,12 +34,12 @@
         <input type="submit" value="submit">
       </form>
       <div id="previousGuess" class="conatiner" style="padding: 20px; margin-top: 20px">
-        <p1 style="color: white" >Previous Guesses:</p1>
-        <p2 style="color: red" id="correct"></p2>
-        <p3 id="guessAgain"></p3>
+        <p1 style="color: white" >Previous Guess:</p1>
+        <p2 style="color: white" id="guessStatus"></p2>
       </div>
-      <div>
-
+      <div id="letterGuesses" name="letterGuesses">
+        <div id="presentLetters" name="presentLetters">Present Letters</div>
+        <div id="absentLetters" name="absentLetters">Absent Letters</div>
       </div>
     <script src="javascripts/index.js"></script>
 </body>
