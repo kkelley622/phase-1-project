@@ -158,11 +158,13 @@ form.onsubmit = async function (event) {
     
     response.map((letter) => {
         if(letter.result === "present" || letter.result === "absent") incorrectLetters += 1
-        const presentLetters = document.getElementById("presentLetters")
-        const absentLetters = document.getElementById("absentLetters")
+        const presentLetters = document.getElementById("presentLettersP")
+        const absentLetters = document.getElementById("absentLettersP")
+        const correctLetters = document.getElementById("correctLettersP")
 
         presentLetters.innerText += `${letter.result === "present" ? ` ${letter.guess}` : ""}`
         absentLetters.innerText += `${letter.result === "absent" ? ` ${letter.guess}` : ""}`
+        correctLetters.innerText += `${letter.result === "correct" ? ` ${letter.guess}` : ""}`
     })  // map through the letters of guess, determine if the letter is present or absent. if present or absent + 1 to incorrect letters
     // incorrectLetters = 0
     const guessStatus = document.getElementById("guessStatus")  // assign div of guessStatus to variable guessStatus
