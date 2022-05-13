@@ -1,16 +1,4 @@
-// 'use strict';
 
-/* 
-    Overall Idea:
-        Click the Wordle Spinooff link
-
-    When: DOMContentLoaded (event)
-
-    Cause: click
-
-    Effect: return to the homepage
-
-*/
 // Node Getters
 const mainDiv = () => document.getElementById("main");
 const wordOfDay = () => document.getElementById("word-of-day-link")
@@ -48,7 +36,7 @@ function renderHomePage() {
     const p = document.createElement("p");
 
     h1.innerText = "Kevin's Word Guessing Game Homepage"
-    p.innerText = "Guess the five letter word of the day!"
+    p.innerText = "Guess the five letter word of the day! If a letter is in the word of the day, but in the wrong spot, it will populate under present letters. If a guessed letter is not in the correct word at all, it will populate under absent letters. And if a guessed letter is in the correct place in the daily word, it will populate under correct letters. Click the Your Previous Guesses tab to see which words have already been guessed."
 
     mainDiv().appendChild(h1);
     mainDiv().appendChild(p);
@@ -114,6 +102,8 @@ function renderPreviousGuesses() {  // display user's guess in p2 under the subm
 function resetMainDiv() {
     mainDiv().innerHTML = ""
 }
+
+
 
 // Fetching API and returning word of the day
 async function guessDailyWord(guessWord) {

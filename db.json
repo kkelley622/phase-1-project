@@ -127,8 +127,28 @@
       "id": 25
     },
     {
-      "lastGuess": "chore",
+      "lastGuess": "cloud",
       "id": 26
+    },
+    {
+      "lastGuess": "cloud",
+      "id": 27
+    },
+    {
+      "lastGuess": "decks",
+      "id": 28
+    },
+    {
+      "lastGuess": "decal",
+      "id": 29
+    },
+    {
+      "lastGuess": "decca",
+      "id": 30
+    },
+    {
+      "lastGuess": "black",
+      "id": 31
     }
   ]
 }

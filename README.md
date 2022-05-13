@@ -1,5 +1,28 @@
 # Kevin's Word Guessing Game
-This app simply allows users to guess any five letter word.  I have linked my JavaScript to an API that generates a five letter word of the day. The user of the app is able to submit any five letter word the JavaScript then checks the letters of the guessed word against the API. If each letter returns correct then the user is notified that there word is correct. I realize this is not the most user friendly app, and I intend to come back to this project in order to include more user friendly functions within the app, like checking and returning each correct letter rather than simply notifying the user if the entire word is correct. At this time it's very unlikely a user guesses the correct five letter word, because there is not much feedback with each guess. 
+
+## Introduction
+
+This app simply allows users to guess a daily five letter word. The daily word changes everyday through the public API linked in the JavaScript. 
+
+## Instructions
+
+- open index.html in the web browser
+
+- run "json-server --watch db.json" in the terminal
+
+- submit your five letter word in the submit form
+
+- if any letter of your word is present in the daily word, but not in the correct spot, that letter will populate under "present letters"
+
+- if any letter of the submitted word is not in the daily word at all, it will populate under "absent letters"
+
+- if any letter of the submitted word is present and in the correct spot in the daily word, it will populate under "correct letters"
+
+- if the submitted word does not match the daily word, the submitted word along with the message "Guess Again" will appear under "Previous Guess"
+
+- if the submitted word matches the daily word, the submitted word along with the message "Good Job" will appear under "Previous Guess"
+
+- Users can view which words they have previously guess by clicking on the "Your Previous Guesses" tab
 
 ### Requirements
 * Have json-server installed
@@ -9,5 +32,7 @@ This app simply allows users to guess any five letter word.  I have linked my Ja
 * Run json server for db.json
 * Open index.html in the browser
 
-### Contributing
+### Conclusion
+
+This single page web app works similarly to the popular game Wordle. The user guesses a random five letter word and receives feedback on which letters are correct. The user has an unlimited number of guesses. Once the user has guessed the correct word, they are alerted with the word and the message "Good Job"
 
