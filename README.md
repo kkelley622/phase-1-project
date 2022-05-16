@@ -36,3 +36,6 @@ This app simply allows users to guess a daily five letter word. The daily word c
 
 This single page web app works similarly to the popular game Wordle. The user guesses a random five letter word and receives feedback on which letters are correct. The user has an unlimited number of guesses. Once the user has guessed the correct word, they are alerted with the word and the message "Good Job"
 
+### Acknowledgements
+* Public API used for the daily word: https://v1.wordle.k2bd.dev/redoc
+* Debugging and guidance provided by Kelli Budd
