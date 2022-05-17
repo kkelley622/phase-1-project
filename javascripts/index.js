@@ -1,32 +1,67 @@
 
-// Node Getters
-const mainDiv = () => document.getElementById("main");
-const wordOfDay = () => document.getElementById("word-of-day-link")
-const randomWord = () => document.getElementById("random-word")
-const wordleSpinoff = () => document.getElementById("wordle-spinoff")
-const previousGuess = () => document.getElementById("previousGuess")
+// creating a variable and function to reset the main html div
+const mainDiv = () => document.getElementById("main"); // mainDiv variable
+
+function resetMainDiv() {
+    mainDiv().innerHTML = ""
+} // function calling main div variable and setting inner text to empty
+
+// creating a variable and function to set the inner text of the "Your Previous Guesses" tab
+const wordOfDay = () => document.getElementById("word-of-day-link") // variable title does not accurately reflect the html tab
+
+function renderWordOfDayForm() {
+    resetMainDiv();
+    
+    const h1 = document.createElement("h1");
+
+    const form = document.createElement("form")
+    form.setAttribute('method', "post");
+    form.setAttribute('action', "submit.php")
+
+    h1.innerText = "Previous Guesses"
+    h1.style.margintop = "0"
+    
+    mainDiv().appendChild(h1)
+    renderLastGuesses();
+} // function to set the inner text of "Your Previous Guesses" to the JSON list of previous guesses
+
+const previousGuess = () => document.getElementById("previousGuess") // variable set to the index html element
+
+let lastGuess = []; // variable of an empty array for us to push our guesses into
+
+const renderLastGuess = (lastGuess, ul) => {
+    const li = document.createElement("li");
+    li.innerText = lastGuess.lastGuess
+    ul.appendChild(li);
+} // 
+
+const renderLastGuesses = () => {
+    const ul = document.createElement("ul");
+    lastGuess.forEach(lastGuess => renderLastGuess(lastGuess, ul))
+    mainDiv().appendChild(ul)
+
+} // 
 
 
-let lastGuess = [];
 
 
-// Event Listeners
+
+function renderPreviousGuesses() {  // display user's guess in p2 under the submit form
+    p2.innerText = guess
+}
+
+
 function attachWordOfDayEvent() {
     wordOfDay().addEventListener("click", renderWordOfDayForm)
 }
 
-// function attachRandomWordEvent() {
-//     randomWord().addEventListener("click", renderRandomWordForm)
-// }
+
+const wordleSpinoff = () => document.getElementById("wordle-spinoff")
 
 function attachWordleSpinoffClickEvent() {
     wordleSpinoff().addEventListener("click", renderHomePage)
 }
 
-
-
-
-// Event Handlers
 function renderHomePage() {
     // create the html elements of the home page
     resetMainDiv();
@@ -42,66 +77,30 @@ function renderHomePage() {
     mainDiv().appendChild(p);
 }
 
-// Function to render ord of the day page on click
-function renderWordOfDayForm() {
-    resetMainDiv();
-    
-    // create the html elements of the word of the day page
-    const h1 = document.createElement("h1");
-
-    const form = document.createElement("form")
-    form.setAttribute('method', "post");
-    form.setAttribute('action', "submit.php")
-
-    h1.innerText = "Previous Guesses"
-    h1.style.margintop = "0"
-    
-    mainDiv().appendChild(h1)
-    renderLastGuesses();
-}
-
-const renderLastGuesses = () => {
-    const ul = document.createElement("ul");
-    lastGuess.forEach(lastGuess => renderLastGuess(lastGuess, ul))
-    mainDiv().appendChild(ul)
-
-}
-
-const renderLastGuess = (lastGuess, ul) => {
-    const li = document.createElement("li");
-    li.innerText = lastGuess.lastGuess
-    ul.appendChild(li);
-}
-
-// function renderRandomWordForm() {
-//     resetMainDiv();
-
-//     const h1 = document.createElement("h1");
-//     const li = document.createElement("li");
-//     const ul = document.createElement("ul");
-
-//     h1.innerText = "Random Word"
-//     h1.style.margintop = "0"
-    
-//     li.innerText = "Guess any random four letter word"
-    
-//     ul.appendChild(li);
-
-//     mainDiv().appendChild(h1)
-//     mainDiv().appendChild(ul)
 
 
-// }
-
-function renderPreviousGuesses() {  // display user's guess in p2 under the submit form
-    p2.innerText = guess
-}
 
 
-// Helpers
-function resetMainDiv() {
-    mainDiv().innerHTML = ""
-}
+// Event Listeners
+
+
+
+
+
+
+
+
+
+// Event Handlers
+
+
+// Function to render word of the day page on click
+
+
+
+
+
+
 
 
 
@@ -178,7 +177,6 @@ const fetchGuessList = () => {
 document.addEventListener("DOMContentLoaded", () => {
     renderHomePage();
     attachWordOfDayEvent();
-    // attachRandomWordEvent();
     fetchGuessList();
     attachWordleSpinoffClickEvent();
 })
