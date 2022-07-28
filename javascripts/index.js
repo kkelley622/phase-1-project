@@ -1,13 +1,11 @@
 
-// creating a variable and function to reset the main html div
-const mainDiv = () => document.getElementById("main"); // mainDiv variable
+const mainDiv = () => document.getElementById("main");
 
 function resetMainDiv() {
     mainDiv().innerHTML = ""
-} // function calling main div variable and setting inner text to empty
+} 
 
-// creating a variable and function to set the inner text of the "Your Previous Guesses" tab
-const wordOfDay = () => document.getElementById("word-of-day-link") // variable title does not accurately reflect the html tab
+const wordOfDay = () => document.getElementById("word-of-day-link")
 
 function renderWordOfDayForm() {
     resetMainDiv();
@@ -23,15 +21,15 @@ function renderWordOfDayForm() {
     
     mainDiv().appendChild(h1)
     renderLastGuesses();
-} // function to set the inner text of "Your Previous Guesses" to the JSON list of previous guesses
+} 
 
-const previousGuess = () => document.getElementById("previousGuess") // variable set to the index html element
+const previousGuess = () => document.getElementById("previousGuess") 
 
-let lastGuess = []; // variable of an empty array for us to push our guesses into
+let lastGuess = []; 
 
 const renderLastGuess = (lastGuess, ul) => {
     const li = document.createElement("li");
-    li.innerText = lastGuess.lastGuess
+    li.innerText = lastGuess.lastGuess;
     ul.appendChild(li);
 } // 
 
@@ -46,7 +44,7 @@ const renderLastGuesses = () => {
 
 
 
-function renderPreviousGuesses() {  // display user's guess in p2 under the submit form
+function renderPreviousGuesses() { 
     p2.innerText = guess
 }
 
@@ -63,7 +61,7 @@ function attachWordleSpinoffClickEvent() {
 }
 
 function renderHomePage() {
-    // create the html elements of the home page
+    
     resetMainDiv();
 
     const h1 = document.createElement("h1");
@@ -81,7 +79,6 @@ function renderHomePage() {
 
 
 
-// Event Listeners
 
 
 
@@ -91,10 +88,6 @@ function renderHomePage() {
 
 
 
-// Event Handlers
-
-
-// Function to render word of the day page on click
 
 
 
@@ -104,7 +97,9 @@ function renderHomePage() {
 
 
 
-// Fetching API and returning word of the day
+
+
+
 async function guessDailyWord(guessWord) {
     const response = await fetch (`https://v1.wordle.k2bd.dev/daily?guess=${guessWord}`, {
         method: 'GET'
@@ -117,13 +112,12 @@ async function guessDailyWord(guessWord) {
 
 
 
-const form = document.getElementById("guess-form")  // assigning the form to a variable 
+const form = document.getElementById("guess-form") 
 
-// Submitting our guess form
 form.onsubmit = async function (event) {
     event.preventDefault()
 
-    const guess = form.guess.value  // setting the value of our guess to a variable
+    const guess = form.guess.value 
     console.log("guess", guess)
     const pushToGuessList = () => {
         fetch('http://localhost:3000/guesses', {
@@ -139,10 +133,10 @@ form.onsubmit = async function (event) {
         lastGuess.push(data);
     })
     }
-    const response = await guessDailyWord(guess)  // using our guess variable as the parameter in guessDailyWord function and setting to the variable response
+    const response = await guessDailyWord(guess)
     console.log("response", response[0].result)
     
-    let incorrectLetters = 0  // creating a new variable to store number of incorrect letters
+    let incorrectLetters = 0 
 
     
     response.map((letter) => {
@@ -154,18 +148,18 @@ form.onsubmit = async function (event) {
         presentLetters.innerText += `${letter.result === "present" ? ` ${letter.guess}` : ""}`
         absentLetters.innerText += `${letter.result === "absent" ? ` ${letter.guess}` : ""}`
         correctLetters.innerText += `${letter.result === "correct" ? ` ${letter.guess}` : ""}`
-    })  // map through the letters of guess, determine if the letter is present or absent. if present or absent + 1 to incorrect letters
-    // incorrectLetters = 0
-    const guessStatus = document.getElementById("guessStatus")  // assign div of guessStatus to variable guessStatus
+    })  
+    
+    const guessStatus = document.getElementById("guessStatus")
 
-    const isCorrect = incorrectLetters === 0  // the value of isCorrect assigned incorrectLetters with a value of 0
-    guessStatus.innerText = `${guess}: ${isCorrect ? "Good Job" : "Guess Again"}`  // using a ternary to display different text depending on wheter or not there are any incorrect letters in our guess
+    const isCorrect = incorrectLetters === 0 
+    guessStatus.innerText = `${guess}: ${isCorrect ? "Good Job" : "Guess Again"}`
     
     pushToGuessList();
     
 }
 
-// using db.json
+
 
 const fetchGuessList = () => {
     fetch("http://localhost:3000/guesses")
@@ -179,4 +173,27 @@ document.addEventListener("DOMContentLoaded", () => {
     attachWordOfDayEvent();
     fetchGuessList();
     attachWordleSpinoffClickEvent();
+    guessDailyWord();
 })
+
+// return the items that have a price less than 5 dollars: 
+const items = [{label: "milk", price: 2}, {label: "banana", price: 10}, {label: "ice cubes", price: 1}]
+
+const filteredItems = items.filter(item => item.price < 5);
+
+// when a user clicks add items, all of those filtered items added to items container
+
+// select button from DOM and assign it to a variable X
+const addItemButton = document.getElementById("addItem");
+// add an event listener on the button listening for a click event
+addItemButton.addEventListener("click", addItems);
+
+function addItems () {
+   // in the callback for the event listener add the items to item container
+    // declare a variable for items container
+    const itemsContainer = [];
+    // forEach item in filteredItems add to item container
+    filteredItems.forEach(element => itemsContainer.push(element))
+    console.log("items container", itemsContainer)
+    console.log("clicked")
+}
