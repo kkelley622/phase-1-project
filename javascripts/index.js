@@ -193,7 +193,12 @@ function addItems () {
     // declare a variable for items container
     const itemsContainer = [];
     // forEach item in filteredItems add to item container
-    filteredItems.forEach(element => itemsContainer.push(element))
+    filteredItems.forEach(element => itemsContainer.push(element.label))
+
+    const lowCostItems = document.getElementById("items");
+
+    lowCostItems.innerHTML = itemsContainer;
+
     console.log("items container", itemsContainer)
     console.log("clicked")
 }
